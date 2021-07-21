@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/myStyle.css">
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="js/lazyload.js"></script>
+  <script src="js/data.js"></script>
+  <title>個人履歷</title>
+</head>
+
+<body class="tracking-wide" style="background-color:#2c2d2f">
+  <div class="relative h-screen md:flex " x-data="mainContent()">
+
+    <!-- mobile menu bar -->
+    <div class="fixed z-10 top-0 w-full bg-gray-800 text-gray-100 flex justify-between md:hidden">
+      <!-- logo -->
+      <a href="#" class="block p-4 text-white font-bold">呂騰耀</a>
+      <button class="mobile-menu-button p-4 focus:bg-gray-700" @click="mobileMenuClick()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <!-- nav -->
+    </div>
+
+    <!-- asider -->
+    <div x-cloak
+      :class="'sidebar h-screen overflow-hidden bg-gray-800 text-blue-100 w-48 fixed z-20 inset-y-0 left-0 transform '+ (menuAsider==false ? '-translate-x-full' : '') +' transition duration-200 ease-in-out md:relative md:translate-x-0'"
+      id="menuAsider">
+      <!-- Picture-->
+      <a href="#" class="text-white flex items-center flex-col relative">
+        <img data-src="image/people.jpg" class="w-100">
+        <span
+          class="absolute text-xl text-white font-extrabold p-1 bg-gray-800 w-full text-center bg-opacity-80 bottom-0">呂騰耀</span>
+      </a>
+      <!-- nav -->
+      <nav class="divide-y divide-gray-700">
+        <a href="#"
+          :class="'block py-2.5 text-center hover:bg-gray-600 hover:text-white rounded transition duration-200 ' + (display == 1 ? 'bg-gray-600 text-white' : 'text-gray-400')"
+          @click="asideMenuClick(1)">
+          首頁
+        </a>
+        <a href="#"
+          :class="'block py-2.5 text-center hover:bg-gray-600 hover:text-white rounded transition duration-200 ' + (display == '2' ? 'bg-gray-600 text-white' : 'text-gray-400')"
+          @click="asideMenuClick(2)">
+          介紹
+        </a>
+        <a href="#"
+          :class="'block py-2.5 text-center hover:bg-gray-600 hover:text-white rounded transition duration-200 ' + (display == '3' ? 'bg-gray-600 text-white' : 'text-gray-400')"
+          @click="asideMenuClick(3)">
+          履歷
+        </a>
+        <a href="#"
+          :class="'block py-2.5 text-center hover:bg-gray-600 hover:text-white rounded transition duration-200 ' + (display == '4' ? 'bg-gray-600 text-white' : 'text-gray-400')"
+          @click="asideMenuClick(4)">
+          作品
+        </a>
+        <a href="#"
+          :class="'block py-2.5 text-center hover:bg-gray-600 hover:text-white rounded transition duration-200 ' + (display == '5' ? 'bg-gray-600 text-white' : 'text-gray-400')"
+          @click="asideMenuClick(5)">
+          聯繫我
+        </a>
+      </nav>
+
+      <footer class="flex flex-col items-center text-gray-400 w-full py-6">
+        <div class="space-x-2 mb-2">
+          <span>
+            <a href="#" title="臉書">
+              <i data-feather="facebook" class="transform hover:scale-125 inline-block hover:text-gray-200"></i>
+            </a>
+          </span>
+          <span>
+            <a href="#" title="Youtbe">
+              <i data-feather="youtube" class="transform hover:scale-125 inline-block hover:text-gray-200"></i>
+            </a>
+          </span>
+          <span>
+            <a href="#" title="IG">
+              <i data-feather="instagram" class="transform hover:scale-125 inline-block hover:text-gray-200"></i>
+            </a>
+          </span>
+        </div>
+        <div class="mt-2 text-xs text-center">@2021 Designed by Royx.<br>All Right Reserved.</div>
+      </footer>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-1 relative min-h-screen h-max overflow-x-hidden">
+
+      <!-- content HOME-->
+      <div x-cloak class="absolute z-0 w-full min-h-screen h-full font-bold bg-gray-700 text-white"
+        x-show="display == '1'" x-transition:enter="transition duration-1000"
+        x-transition:enter-start="transform translate-x-full" x-transition:enter-end="transform translate-x-0"
+        x-transition:leave="transition duration-1000" x-transition:leave-start="transform"
+        x-transition:leave-end="transform -translate-x-full">
+        <div class="h-screen flex flex-col items-center justify-center" x-data="typingWord()" id="headingBackground">
+          <div class="text-5xl heading-text">呂騰耀</div>
+          <p class="text-3xl mt-4 tracking-widest text-center px-2 text-bold" x-text="string" id="blink-caret"></p>
+        </div>
+      </div>
+
+      <!-- content 關於我-->
+      <div x-cloak
+        :class="'absolute z-0 w-full min-h-screen h-screen font-bold text-white p-8 ' + (display == '2' ? 'overflow-y-auto' : 'overflow-y-hidden')"
+        x-show="display == '2'" style="background-color:#2c2d2f" x-transition:enter="transition duration-1000"
+        x-transition:enter-start="transform translate-x-full" x-transition:enter-end="transform translate-x-0"
+        x-transition:leave="transition duration-1000" x-transition:leave-start="transform"
+        x-transition:leave-end="transform -translate-x-full">
+        <div class="mt-8 md:mt-0"></div>
+
+        <div class="block border-b-2 border-gray-600 border-dotted flex justify-between items-center color-00a3e1">
+          <h2 class="py-2 text-4xl">關於我. Royx</h2>
+          <i data-feather="user" class="w-10 h-10 inline-block"></i>
+        </div>
+
+        <!-- 個人資料 -->
+        <div class="block">
+          <!-- 自我介紹 -->
+          <div class="text-gray-100 space-y-2 my-4 w-full lg:inline-block lg:w-8/12">
+            <div class="text-bold text-xl">
+              網頁全端工程師 / 系統工程師 / 網路工程師
+            </div>
+            <div class="pl-4">
+              <ol class="list-decimal text-justify" start="1">
+                <li>2001年因興趣開始研究木馬(Sub Seven)及觸資安，開啟了學習旅程，沿路接觸各種不同的領域，例如 Linux、網路攻防、資料庫設計、到現在的雲端網路服務 Saas
+                  和一些程式設計輔助工具、docker、github。</li>
+                <li>早期投程式學習，在作品中有 C++ Builder 設計的單機版 RPG 遊戲、Perl 的網路爬蟲及自動自動化程式以及 Perl, Python C# 的網路攻擊程式。</li>
+                <li>最近幾年因對網站系統興趣濃厚，開始自我學習 PHP、並在學兩年後設計了第一個單位內的 「CMS
+                  網站系統」，包括會員管理、內容管理、檔案管理、相簿管理、日誌等功能；接續也花費了一年左右的時間製作類似
+                  Pintrest 的平台（同時間推出），但因功能及費用不及，此案也沒有成功。</li>
+                <li>曾開發過「文宣/影音共享平台」、「CMS 內容管理」、「考試學習」、「形象網站」類型的網站系統，由於內部網路及版權關係，無法呈現。</li>
+                <li>近三年開始接觸雲端服務後，也開始將網站系統搬移至雲端，使用過 AWS EC2 及 GCP VM, LB，目前 GCP 持續使用，目前正積尋求網站全端開發工作。</li>
+              </ol>
+            </div>
+          </div>
+          <!-- 基本資料 -->
+          <div class="text-gray-100 my-4 block lg:inline-block lg:w-3/12 lg:align-top lg:ml-6">
+            <div class="text-bold text-xl">
+              個人介紹
+            </div>
+            <div class="my-1 space-y-2">
+              <p><span class="border-b-2 border-00a3e1">姓名</span>: 呂騰耀</p>
+              <p><span class="border-b-2 border-00a3e1">出生</span>: 1981/6</p>
+              <p><span class="border-b-2 border-00a3e1">居住</span>: 新北市三重區</p>
+              <p><span class="border-b-2 border-00a3e1">電子郵件</span>: <br><span style="letter-spacing: -3px"
+                  class="lg:text-xs">ｚｕｉｎ＿ｒｏｙｘ＠ｈｏｔｍａｉｌ．ｃｏｍ</span></p>
+              <button class="p-2 w-28 text-center border-2 border-00a3e1 color-00a3e1" @click="display='3'">
+                我的履歷
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- 資訊能力 -->
+        <div class="my-6 block text-center text-xl text-blod">[ 能力 / 經驗 ]</div>
+        <div class="grid grid-cols-2 md:grid-cols-4 my-4 gap-4">
+          <div class="flex flex-col justify-center items-center">
+            <i data-feather="layout" class="m-4 w-12 h-12 inline-block color-00a3e1"></i>
+            <div class="text-lg text-bold">網頁前端設計</div>
+            <div class="text-sm text-center">HTML、CSS3、Bootstrap、Tailwindcss、Javascript、jQuery、AlpineJs</div>
+          </div>
+          <div class="flex flex-col justify-center items-center">
+            <i data-feather="code" class="m-4 w-12 h-12 inline-block color-00a3e1"></i>
+            <div class="text-lg text-bold">網頁後端設計</div>
+            <div class="text-sm text-center">PHP、Laravel，會員管理、內容管理、影音壓縮處理、後台規劃</div>
+          </div>
+          <div class="flex flex-col justify-center items-center">
+            <i data-feather="server" class="m-4 w-12 h-12 inline-block color-00a3e1"></i>
+            <div class="text-lg text-bold">作業系統</div>
+            <div class="text-sm text-center">Windows Desktop、Linux Server(Centos Debain)</div>
+          </div>
+          <div class="flex flex-col justify-center items-center">
+            <i data-feather="database" class="m-4 w-12 h-12 inline-block color-00a3e1"></i>
+            <div class="text-lg text-bold">資料庫</div>
+            <div class="text-sm text-center">Mysql</div>
+          </div>
+          <div class="flex flex-col justify-center items-center">
+            <i data-feather="upload-cloud" class="m-4 w-12 h-12 inline-block color-00a3e1"></i>
+            <div class="text-lg text-bold">雲端服務</div>
+            <div class="text-sm text-center">Amazon Web Service, Google Cloud Platform(Load Balance)</div>
+          </div>
+          <div class="flex flex-col justify-center items-center">
+            <i data-feather="star" class="m-4 w-12 h-12 inline-block color-00a3e1"></i>
+            <div class="text-lg text-bold">相關證照</div>
+            <div class="text-sm text-center">Ethical Hacker(道德駭客)、Linux RHCE(紅帽)、Linux RHCSA(紅帽)、網路封包分析 Class C</div>
+          </div>
+          <div class="flex flex-col justify-center items-center">
+            <i data-feather="star" class="m-4 w-12 h-12 inline-block color-00a3e1"></i>
+            <div class="text-lg text-bold">其他</div>
+            <div class="text-sm text-center">Docker、Github、Microsoft Office、Photoshop、Vscode</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- content 履歷-->
+      <div x-cloak
+        :class="'absolute z-0 w-full min-h-screen h-screen font-bold text-white p-8 ' + (display == '3' ? 'overflow-y-auto' : 'overflow-y-hidden')"
+        x-show="display == '3'" style="background-color:#2c2d2f" x-transition:enter="transition duration-1000"
+        x-transition:enter-start="transform translate-x-full" x-transition:enter-end="transform translate-x-0"
+        x-transition:leave="transition duration-1000" x-transition:leave-start="transform"
+        x-transition:leave-end="transform -translate-x-full">
+        <div class="mt-8 md:mt-0"></div>
+
+        <div class="block border-b-2 border-gray-600 border-dotted flex justify-between items-center color-00a3e1">
+          <h2 class="py-2 text-4xl">履歷. Resume</h2>
+          <i data-feather="book-open" class="w-10 h-10 inline-block"></i>
+        </div>
+        <div class="grid md:grid-cols-2 my-4 text-white">
+          <!-- 學習 -->
+          <div class="w-full">
+            <div class="my-6 block text-center text-xl text-blod pt-4">
+              <span class="border-b-2 border-00a3e1 py-1 px-2">[ 學習 / Learning ]</span>
+            </div>
+            <div class="flex flex-col space-y-12">
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2000</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">資訊安全-木馬研究</span>
+                  <span class="text-sm block">經典 Sub Seven 特洛伊木馬測試與植入，了解病毒、蠕蟲與木馬功能及特性差異。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">2001</span>
+              </div>
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2002</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">程式語言- C</span>
+                  <span class="text-sm block">學習所有程式的基礎 C，雖然是基礎，但過程很艱辛，畢竟 C 不適合初學者，但對程式架構及特型有所了解。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">2004</span>
+              </div>
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2005</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">程式語言- C++</span>
+                  <span class="text-sm block">在 C 之後進入 C++ 的世界，比起 C，物件導向的語言在功能上比較容易結合，並且較能夠發現問題，在學習的第二年用 C++ Builder
+                    制作出類似 天堂1 的單機遊戲，深入了解程式的觸發事件與系統架構的應用。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">2007</span>
+              </div>
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2008</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">Windows 與 Linux 作業系統</span>
+                  <span class="text-sm block">開始進入 MIS 的工作，除了要排除 PC 的硬體問題、針對各種軟體或系統問題都要能夠排除修復；同時間開認識 Linux 的架構及功能，為何伺服器用
+                    Linux 能夠帶來穩定與效能。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">2010</span>
+              </div>
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2011</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">資安安全-安全管理師</span>
+                  <span class="text-sm block">隨著網路發達，網路安全日益重視，因此深入研究應如何應付各種攻擊手段，提升工作的防護力。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">2011</span>
+              </div>
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2012</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">程式學習-PHP</span>
+                  <span class="text-sm block">因應網頁興起，開始學習 PHP程式設計、並在第二年獨立完成 CMS 網站（工作），並結合 ajax 技術，了解前端與後端的整合與應用。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">2014</span>
+              </div>
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2015</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">程式學習-雲端服務與網站的結合</span>
+                  <span class="text-sm block">當時的伺服器幾乎都是硬體式，費用高，甚至需要專線來讓網路能夠跑得更順暢，而當代的雲端服務領頭羊 Amazon，發明了雲端網路服務 EC2
+                    ，大幅減少成本，提高可用度，但需要熟悉作業系統（Linux or Windows
+                    Server），隨後也產生一系列的進階服務，只要台灣有會議教學，我幾乎都到議場聽講，目的就是將網頁系統與雲端服務緊密結合再一起。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">2017</span>
+              </div>
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2018</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">程式學習-Laravel框架</span>
+                  <span
+                    class="text-sm block">隨著網站技術日益成長，框架已是必然之路，框架能減少開發風險（資安）、降低系統維護成本、高彈性及整合度，這些都是優勢未來競爭所需要，雖然重要，但也不可荒廢原生
+                    PHP，因為她是母體。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">2020</span>
+              </div>
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2021</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">程式學習-前/後端學習與整合</span>
+                  <span
+                    class="text-sm block">當今人手一機的智慧型手機，是每個人閒話家常的溝通媒介，此時網站定位顯得正重要、也將前端技術帶往更複雜的方向，意味著前端框架的之重要性不可忽視。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">迄今</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 證照 -->
+          <div class="w-full">
+            <div class="my-6 block text-center text-xl text-blod pt-4">
+              <span class="border-b-2 border-00a3e1 py-1 px-2">[ 認證 / Certificates ]</span>
+            </div>
+            <div class="flex flex-col space-y-12">
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2010</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">Ethical Hacker(CEH) <br>國際道德駭客認證</span>
+                  <span class="text-sm block">藉由實際的各種攻擊手段了解網路攻擊防禦之道，從單機到網路、病毒到木馬、詐騙到社交攻擊。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">2010</span>
+              </div>
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2013</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">封包分析 Class C 認證<br>
+                    RHCE 紅帽 系統工程師認證</span>
+                  <span class="text-sm block">藉由 Wireshark 軟體，擷取當前網路環境封包，分析所在硬體設備以及網路流量異常狀況。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">2013</span>
+              </div>
+              <!-- 各年度區塊 -->
+              <div class="relative border-l-2 border-00a3e1 p-8 text-justify">
+                <span class="absolute left-4 -top-4 text-sm">2015</span>
+                <span class="-left-2 -top-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <div class="">
+                  <span class="text-lg block">RHCSA 紅帽 系統管理師認證<br>
+                    RHCE 紅帽 系統工程師認證</span>
+                  <span class="text-sm block">熟悉紅帽所發行的 Linux 版本（Centos, RedHat, Fedora）及於系統中架設多種服務，如 Web, Samba, FTP,
+                    Mail Server, Database, DNS, Router, Firewall ...。</span>
+                </div>
+                <span class="-left-2 -bottom-2 w-4 h-4 rounded-full bg-00a3e1 absolute"></span>
+                <span class="absolute left-4 -bottom-4 text-sm">2015</span>
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- content 作品-->
+      <div x-cloak
+        :class="'absolute z-0 w-full min-h-screen h-screen font-bold text-white p-8 ' + (display == '4' ? 'overflow-y-auto' : 'overflow-y-hidden')"
+        x-show="display == '4'" style="background-color:#2c2d2f" x-transition:enter="transition duration-1000"
+        x-transition:enter-start="transform translate-x-full" x-transition:enter-end="transform translate-x-0"
+        x-transition:leave="transition duration-1000" x-transition:leave-start="transform"
+        x-transition:leave-end="transform -translate-x-full">
+        <div class="mt-8 md:mt-0"></div>
+
+        <div class="block border-b-2 border-gray-600 border-dotted flex justify-between items-center color-00a3e1">
+          <h2 class="py-2 text-4xl">作品. Profolio</h2>
+          <i data-feather="briefcase" class="w-10 h-10 inline-block"></i>
+        </div>
+        <div class="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- 單一作品 -->
+          <div class="text-white flex flex-col justify-center">
+            <img data-src="image/profolio_1.png"
+              class="border-2 border-gray-600 rounded w-full cursor-pointer rounded-lg"
+              @click="modalPopUp('profolio_1.png', '驗光師考試系統')">
+            <span class="text-center mt-2">驗光師考試系統</span>
+          </div>
+          <!-- 單一作品 -->
+          <div class="text-white flex flex-col justify-center">
+            <img data-src="image/profolio_2.png"
+              class="border-2 border-gray-600 rounded w-full cursor-pointer rounded-lg"
+              @click="modalPopUp('profolio_2.png', '戰鬥營報名系統')">
+            <span class="text-center mt-2">戰鬥營報名系統</span>
+          </div>
+          <!-- 單一作品 -->
+          <div class="text-white flex flex-col justify-center">
+            <img data-src="image/profolio_3.png"
+              class="border-2 border-gray-600 rounded w-full cursor-pointer rounded-lg"
+              @click="modalPopUp('profolio_3.png', '醫登美適鏡片')">
+            <span class="text-center mt-2">醫登美適鏡片</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- content 聯繫我-->
+      <div x-cloak
+        :class="'absolute z-0 w-full min-h-screen h-screen font-bold text-white p-8 ' + (display == '5' ? 'overflow-y-auto' : 'overflow-y-hidden')"
+        x-show="display == '5'" style="background-color:#2c2d2f" x-transition:enter="transition duration-1000"
+        x-transition:enter-start="transform translate-x-full" x-transition:enter-end="transform translate-x-0"
+        x-transition:leave="transition duration-1000" x-transition:leave-start="transform"
+        x-transition:leave-end="transform -translate-x-full">
+        <div class="mt-8 md:mt-0"></div>
+
+        <div class="block border-b-2 border-gray-600 border-dotted flex justify-between items-center color-00a3e1">
+          <h2 class="py-2 text-4xl">聯繫我. Contact Me</h2>
+          <i data-feather="mail" class="w-10 h-10 inline-block"></i>
+        </div>
+        <div class="my-6 block text-center text-xl text-blod pt-4">
+          <span class="border-b-2 border-00a3e1 py-1 px-2">[ Talk To Me ]</span>
+        </div>
+        <!-- 表單 -->
+        <div class="container mx-auto px-2 space-y-4">
+          <input type="text" name="name" class="p-2 border-2 border-gray-500 bg-transparent w-full md:w-1/2"
+            placeholder="名稱">
+          <input type="email" name="email" class="p-2 border-2 border-gray-500 bg-transparent w-full md:w-1/2"
+            placeholder="電子郵件">
+          <textarea name="content" rows="10" placeholder="請留言.."
+            class="p-2 border-2 border-gray-500 bg-transparent w-full"></textarea>
+          <button type="submit" class="border-2 border-00a3e1 color-00a3e1 py-2 px-6 hover:text-white">送出</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Modal Gallery -->
+    <div x-cloak x-show="modalOpen" @click="modalOpen = false"
+      class="fixed z-30 bg-black bg-opacity-60 inset-0 p-2 md:p-6 flex flex-col justify-center items-center"
+      x-transition:enter="transition duration-700" x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100" x-transition:leave="transition duration-300"
+      x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+      <div class="w-full h-full modal-image" :style="'background-image:url('+ modalUrl +')'"></div>
+      <div class="mt-4 text-white text-2xl" x-text="modalText"></div>
+    </div>
+  </div>
+  <script>
+    feather.replace()
+  </script>
+</body>
+
+</html>

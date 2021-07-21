@@ -1,0 +1,45 @@
+.heading-text {
+  -webkit-text-stroke: 1px black;
+  color: white;
+  text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+#headingBackground {
+  background-image: url('../image/bg1.png');
+  background-size: cover;
+}
+
+#blink-caret {
+  border-right: 2px solid white;
+  animation: blink-caret .75s step-end infinite;
+}
+
+.border-00a3e1 {
+  border-color: #00a3e1;
+}
+
+.color-00a3e1 {
+  color: #00a3e1;
+}
+
+.bg-00a3e1 {
+  background-color: #00a3e1;
+}
+.modal-image{
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+[x-cloak] {
+  display: none;
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
+  }
+}
