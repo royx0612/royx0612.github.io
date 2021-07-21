@@ -2,7 +2,7 @@ function mainContent(){
   return {
     mobileMenu: false, //
     menuAsider: false,
-    display: '4',
+    display: '1',
     modalOpen:false,
     modalUrl:'',
     modalText:'',
