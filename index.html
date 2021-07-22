@@ -31,7 +31,7 @@
 
     <!-- asider -->
     <div x-cloak
-      :class="'sidebar h-screen overflow-hidden bg-gray-800 text-blue-100 w-48 fixed z-20 inset-y-0 left-0 transform '+ (menuAsider==false ? '-translate-x-full' : '') +' transition duration-200 ease-in-out md:relative md:translate-x-0'"
+      :class="'sidebar h-screen overflow-hidden bg-gray-800 text-blue-100 w-48 md:w-52 lg:w-56 xl:w-60 fixed z-20 inset-y-0 left-0 transform '+ (menuAsider==false ? '-translate-x-full' : '') +' transition duration-200 ease-in-out md:relative md:translate-x-0'"
       id="menuAsider">
       <!-- Picture-->
       <a href="#" class="text-white flex items-center flex-col relative">
@@ -389,7 +389,25 @@
           <h2 class="py-2 text-4xl">作品. Profolio</h2>
           <i data-feather="briefcase" class="w-10 h-10 inline-block"></i>
         </div>
-        <div class="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="my-6 block text-center text-xl text-blod pt-4">
+          <span class="border-b-2 border-00a3e1 py-1 px-2">[ 網站/系統 ]</span>
+        </div>
+        <div class="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <!-- 單一作品 -->
+          <div class="text-white flex flex-col justify-center">
+            <img data-src="image/profolio_4.png"
+              class="border-2 border-gray-600 rounded w-full cursor-pointer rounded-lg"
+              @click="modalPopUp('profolio_4.png', '驗光師考試系統')">
+            <span class="text-center mt-2">CMS 內部網站</span>
+          </div>
+          <!-- 單一作品 -->
+          <div class="text-white flex flex-col justify-center">
+            <img data-src="image/profolio_5.png"
+              class="border-2 border-gray-600 rounded w-full cursor-pointer rounded-lg"
+              @click="modalPopUp('profolio_5.png', '驗光師考試系統')">
+            <span class="text-center mt-2">新聞網站</span>
+          </div>
           <!-- 單一作品 -->
           <div class="text-white flex flex-col justify-center">
             <img data-src="image/profolio_1.png"
@@ -402,14 +420,20 @@
             <img data-src="image/profolio_2.png"
               class="border-2 border-gray-600 rounded w-full cursor-pointer rounded-lg"
               @click="modalPopUp('profolio_2.png', '戰鬥營報名系統')">
-            <span class="text-center mt-2">戰鬥營報名系統</span>
+            <div class="text-center mt-2 flex justify-center items-center space-x-2">
+              <span>戰鬥營報名系統</span>
+              <a href="https://camp.gpwb.gov.tw"><i data-feather="link" class="w-4 h-4 inline-block"></i></a>
+            </div>
           </div>
           <!-- 單一作品 -->
           <div class="text-white flex flex-col justify-center">
             <img data-src="image/profolio_3.png"
               class="border-2 border-gray-600 rounded w-full cursor-pointer rounded-lg"
               @click="modalPopUp('profolio_3.png', '醫登美適鏡片')">
-            <span class="text-center mt-2">醫登美適鏡片</span>
+            <div class="text-center mt-2 flex justify-center items-center space-x-2">
+              <span>醫登美適鏡片</span>
+              <a href="https://ito-lens.com"><i data-feather="link" class="w-4 h-4 inline-block"></i></a>
+            </div>
           </div>
         </div>
       </div>
